@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Eclipse</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🌞 Daily Eclipse 🌙</h1>
+
+        <div class="game-wrapper">
+            <div class="center-content">
+                <div class="game-container">
+                    <div id="grid" class="grid"></div>
+                </div>
+            </div>
+            
+            <div class="controls-top">
+                <button id="infoBtn" class="icon-btn" title="Información">
+                    <span class="icon">ℹ️</span>
+                </button>
+                <button id="themeBtn" class="icon-btn" title="Cambiar tema">
+                    <span class="icon">🌓</span>
+                </button>
+                <button id="volumeBtn" class="icon-btn" title="Sonido">
+                    <span class="icon">🔊</span>
+                </button>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button id="newGameBtn" class="btn btn-check">Nuevo Juego</button>
+            <button id="undoBtn" class="btn btn-undo" disabled>Deshacer</button>
+            <button id="resetBtn" class="btn btn-reset">Reiniciar</button>
+        </div>
+
+        <div id="message" class="message"></div>
+    </div>
+
+    <!-- Modal de Victoria -->
+    <div id="victoryModal" class="modal">
+        <div class="modal-content victory">
+            <div class="modal-header">
+                <h2>🎉 ¡Felicidades! 🎉</h2>
+            </div>
+            <div class="modal-body">
+                <p class="victory-text">¡Has completado el Daily Eclipse!</p>                
+                <div class="victory-icons">🌞✨🌙✨🌟</div>
+            </div>
+            <div class="modal-footer">
+                <button id="playAgainBtn" class="btn btn-check">Jugar de Nuevo</button>
+                <button id="closeVictoryBtn" class="btn btn-reset">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Información -->
+    <div id="infoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📖 Información del Juego</h2>
+                <button class="close-btn" id="closeInfoBtn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h3>🎮 Reglas del Juego</h3>
+                <ul class="rules-list">
+                    <li>🌞 Cada fila y columna debe tener 3 soles</li>
+                    <li>🌙 Cada fila y columna debe tener 3 lunas</li>
+                    <li>❌ No puede haber más de 2 soles o lunas consecutivos</li>
+                    <li>= Las casillas adyacentes a = deben tener el mismo símbolo</li>
+                    <li>✗ Las casillas adyacentes a x deben tener símbolos diferentes</li>
+                    <li>🖱️ Clic: Vacío → Sol → Luna → Vacío</li>
+                    <li>⬜ Las casillas grises están bloqueadas</li>
+                    <li>✅ Las celdas con error se marcan en rojo automáticamente</li>
+                </ul>
+                
+                <h3>👨‍💻 Información</h3>
+                <p><strong>Juego:</strong> Daily Eclipse</p>
+                <p><strong>Versión:</strong> 2.0.0</p>
+                <p><strong>Autor:</strong> Carlos</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
