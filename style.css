@@ -155,6 +155,12 @@ h1 {
     margin-left: 80px;
 }
 
+@media (max-width: 600px) {
+    .game-container {
+        margin-left: 0;
+    }
+}
+
 .grid {
     display: grid;
     grid-template-columns: repeat(6, 60px);
@@ -395,13 +401,19 @@ h1 {
 }
 
 @media (max-width: 600px) {
+    body {
+        padding: 10px;
+    }
+
     .container {
-        padding: 20px;
+        padding: 15px;
+        max-width: 100%;
     }
     
     .game-wrapper {
         flex-direction: column;
         align-items: center;
+        gap: 15px;
     }
     
     .center-content {
@@ -412,15 +424,25 @@ h1 {
     .controls-top {
         flex-direction: row;
         margin-top: 15px;
+        gap: 8px;
+    }
+
+    .icon-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3em;
     }
     
     h1 {
         font-size: 1.8em;
+        margin-bottom: 15px;
     }
     
     .grid {
         grid-template-columns: repeat(6, 45px);
         grid-template-rows: repeat(6, 45px);
+        gap: 4px;
+        padding: 8px;
     }
     
     .cell {
@@ -428,10 +450,23 @@ h1 {
         height: 45px;
         font-size: 1.5em;
     }
+
+    .constraint {
+        width: 28px;
+        height: 28px;
+        font-size: 0.9em;
+        border-width: 2px;
+    }
     
     .btn {
         padding: 10px 20px;
         font-size: 0.9em;
+    }
+
+    .controls {
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
     }
 }
 

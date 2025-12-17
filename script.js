@@ -111,9 +111,11 @@ function createGrid() {
         constraintEl.dataset.row2 = constraint.row2;
         constraintEl.dataset.col2 = constraint.col2;
         
-        const cellSize = 60;
-        const gap = 5;
-        const padding = 10;
+        // Ajustar tamaños según el ancho de la pantalla
+        const isMobile = window.innerWidth <= 600;
+        const cellSize = isMobile ? 45 : 60;
+        const gap = isMobile ? 4 : 5;
+        const padding = isMobile ? 8 : 10;
         
         // Determinar si es horizontal o vertical y calcular posición
         if (constraint.row1 === constraint.row2) {
@@ -956,4 +958,14 @@ function generateValidSolution() {
 window.addEventListener('DOMContentLoaded', () => {
     loadTheme();
     init();
+    
+    // Recalcular posiciones de restricciones al cambiar el tamaño de ventana
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            createGrid();
+            updateGrid();
+        }, 250);
+    });
 });
