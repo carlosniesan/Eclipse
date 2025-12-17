@@ -4,11 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eclipse</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
         <h1>🌞 Eclipse 🌙</h1>
+
+        <div class="controls-top">
+            <button id="infoBtn" class="icon-btn" title="Información">
+                <span class="icon">ℹ️</span>
+            </button>
+            <button id="themeBtn" class="icon-btn" title="Cambiar tema">
+                <span class="icon">🌓</span>
+            </button>
+            <button id="volumeBtn" class="icon-btn" title="Sonido">
+                <span class="icon">🔊</span>
+            </button>
+        </div>
+
+        <div class="level-selector">
+            <button id="newGameBtn" class="btn btn-check">Nuevo Juego</button>
+        </div>
 
         <div class="game-wrapper">
             <div class="center-content">
@@ -16,22 +32,9 @@
                     <div id="grid" class="grid"></div>
                 </div>
             </div>
-            
-            <div class="controls-top">
-                <button id="infoBtn" class="icon-btn" title="Información">
-                    <span class="icon">ℹ️</span>
-                </button>
-                <button id="themeBtn" class="icon-btn" title="Cambiar tema">
-                    <span class="icon">🌓</span>
-                </button>
-                <button id="volumeBtn" class="icon-btn" title="Sonido">
-                    <span class="icon">🔊</span>
-                </button>
-            </div>
         </div>
 
         <div class="controls">
-            <button id="newGameBtn" class="btn btn-check">Nuevo Juego</button>
             <button id="undoBtn" class="btn btn-undo" disabled>Deshacer</button>
             <button id="resetBtn" class="btn btn-reset">Reiniciar</button>
         </div>
