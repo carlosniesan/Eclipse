@@ -23,6 +23,7 @@ let history = []; // Historial de acciones para deshacer
 let isMuted = false;
 let currentTheme = 'light';
 let validationTimeout = null; // Para el debounce de validación
+let isGameCompleted = false; // Flag para bloquear el juego cuando se completa
 
 // Sistema de sonidos usando Web Audio API
 const audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -150,6 +151,9 @@ function createGrid() {
 
 // Manejar click en celda
 function handleCellClick(e) {
+    // Bloquear clicks si el juego está completado
+    if (isGameCompleted) return;
+    
     const row = parseInt(e.target.dataset.row);
     const col = parseInt(e.target.dataset.col);
     
@@ -433,7 +437,7 @@ function updateUndoButton() {
 
 // Función deshacer
 function undo() {
-    if (history.length === 0) return;
+    if (history.length === 0 || isGameCompleted) return;
     
     const lastAction = history.pop();
     grid[lastAction.row][lastAction.col] = lastAction.previousState;
@@ -466,6 +470,7 @@ function celebrateWin() {
 
 // Nuevo juego
 document.getElementById('newGameBtn').addEventListener('click', () => {
+    isGameCompleted = false;
     lockedCells.clear();
     constraints = [];
     history = [];
@@ -483,6 +488,7 @@ document.getElementById('undoBtn').addEventListener('click', () => {
 
 // Reiniciar el juego
 document.getElementById('resetBtn').addEventListener('click', () => {
+    isGameCompleted = false;
     // Reiniciar solo las celdas no bloqueadas
     for (let row = 0; row < GRID_SIZE; row++) {
         for (let col = 0; col < GRID_SIZE; col++) {
@@ -551,8 +557,15 @@ document.getElementById('infoModal').addEventListener('click', (e) => {
 
 // Control del modal de victoria
 function showVictoryModal() {
+    isGameCompleted = true;
     const modal = document.getElementById('victoryModal');
     modal.classList.add('show');
+    
+    // Deshabilitar botón de deshacer
+    const undoBtn = document.getElementById('undoBtn');
+    if (undoBtn) {
+        undoBtn.disabled = true;
+    }
 }
 
 function closeVictoryModal() {
@@ -566,12 +579,15 @@ document.getElementById('closeVictoryBtn').addEventListener('click', () => {
 
 document.getElementById('playAgainBtn').addEventListener('click', () => {
     closeVictoryModal();
+    isGameCompleted = false;
     // Reiniciar con nuevo puzzle
     lockedCells.clear();
     constraints = [];
+    history = [];
     grid = Array(GRID_SIZE).fill().map(() => Array(GRID_SIZE).fill(STATES.EMPTY));
     init();
     clearMessage();
+    updateUndoButton();
     sounds.click();
 });
 
@@ -879,6 +895,14 @@ function generateRandomPuzzle() {
         // Si no se encontró, intentar de nuevo con una nueva solución
         console.log(`Intento ${attempts}: No se encontró solución única válida, reintentando...`);
     }
+    
+    // Eliminar restricciones entre casillas bloqueadas (no aportan información al jugador)
+    constraints = constraints.filter(constraint => {
+        const cell1Key = `${constraint.row1}-${constraint.col1}`;
+        const cell2Key = `${constraint.row2}-${constraint.col2}`;
+        const bothLocked = lockedCells.has(cell1Key) && lockedCells.has(cell2Key);
+        return !bothLocked;
+    });
     
     // Limpiar celdas no bloqueadas en el grid
     for (let row = 0; row < GRID_SIZE; row++) {
